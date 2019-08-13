@@ -1,8 +1,8 @@
-namespace MicroServicesLecture.API.Features.Baskets
+namespace SU.API.Features.Baskets
 {
     public class BasketDTO
     {
-        public class Put
+        public class Post
         {
             public string Name { get; set; }
         }

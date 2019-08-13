@@ -1,14 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace MicroServicesLecture.Model
+namespace SU.Model
 {
-    public class MicroServicesLectureContext : DbContext
+    public class BasketContext : DbContext
     {
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public MicroServicesLectureContext(DbContextOptions<MicroServicesLectureContext> options) : base(options)
+        public BasketContext(DbContextOptions<BasketContext> options) : base(options)
         {
 
         }

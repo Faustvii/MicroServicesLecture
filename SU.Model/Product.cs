@@ -1,4 +1,4 @@
-namespace MicroServicesLecture.Model
+namespace SU.Model
 {
     public class Product
     {

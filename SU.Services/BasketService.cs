@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System;
 
 namespace SU.Services
 {
@@ -61,17 +62,34 @@ namespace SU.Services
                     Name = productName
                 };
 
+
                 basket.Products.Add(product);
+                var eventMessage = $"Added {product.Name} to basket - {basket.Products.Count} products in basket";
+                _context.BasketModifiedEvents.Add(CreateEvent(userId, basket.Id, eventMessage));
 
                 _context.SaveChanges();
             }
+        }
+
+        private BasketModifiedEvent CreateEvent(int userId, int basketId, string message)
+        {
+            return new BasketModifiedEvent
+            {
+                BasketId = basketId,
+                UserId = userId,
+                Message = message,
+                Timestamp = DateTime.Now
+            };
         }
 
         public void RemoveProductFromBasket(int userId, int productId)
         {
             var basket = GetBasket(userId);
             var updatedProducts = basket.Products.Where(x => x.Id != productId).ToList();
+            var eventMessage = $"Removed {basket.Products.First(x => x.Id == productId).Name} from basket - {updatedProducts.Count} products in basket";
             basket.Products = updatedProducts;
+            _context.BasketModifiedEvents.Add(CreateEvent(userId, basket.Id, eventMessage));
+
             _context.SaveChanges();
         }
     }

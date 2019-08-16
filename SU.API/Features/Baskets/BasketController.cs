@@ -8,6 +8,7 @@ namespace SU.API.Features.Baskets
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
     public class BasketController : ControllerBase
     {
         private readonly BasketService _basketService;
